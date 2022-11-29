@@ -1,6 +1,6 @@
 .background {
 
-    background-image: url("background.jpg");
+    background-image: url("../files/background.jpg");
     height: 100vh;
     width: 100%;
     background-repeat: no-repeat;
@@ -31,11 +31,11 @@
 
 
 .button {
-    margin-right: 43px;
+    
     width: 75px;
     height: 40px;
     background: #4079A0;
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -53,7 +53,7 @@
     margin-right:30px ;
     width: 55px;
     height: 24px;
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -64,4 +64,34 @@
     align-items: center;
     flex-direction: row;
 
+}
+.selectSki{
+    font-family: "Arial", serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 36px;
+    display: flex;
+    align-items: center;
+    color: #193C60;
+}
+.boxSelect{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 14px 24px;
+    gap: 115px;
+    width: 557px;
+    height: 64px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #F2F2F2;
+    border-radius: 4px;
+
+
+    font-family: 'Arial', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333232;
 }
