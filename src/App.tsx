@@ -20,10 +20,12 @@ export const DataContext = createContext<DataContext>({
     resortData: {
         curortAdress: "", curortName: "", curortPhonenumber: 0, currortEmail: "", id: 0,
     },
-    userDataModifier: (value: UserData)=>{},
-    resortDataModifier: (value: ResortData) => {
+    userDataModifier: (value: UserData) => {
     },
-    userData:{userId:0,userName:"",userRole:RoleEnum.unsign}
+
+    userData: {userId: 0, userName: "", userRole: RoleEnum.admin},
+    resortDataModifier: (value: ResortData) => {
+    }
 
 });
 
@@ -40,13 +42,17 @@ function App() {
     const resortDataModifier = (value: ResortData) => {
         setResortData(value);
     };
-    const [userData, setUserData]=useState<UserData>({userId:0,userName:"Tomek",userRole:RoleEnum.unsign},);
-const userDataModifier=(value: UserData)=>{
-    setUserData(value)
+    const [userData, setUserData] = useState<UserData>({userId: 0, userName: "Tomek", userRole: RoleEnum.admin},);
+    const userDataModifier = (value: UserData) => {
+        setUserData(value)
     }
     return (
-        <DataContext.Provider value={{resortData: resortData,
-            resortDataModifier: resortDataModifier, userData:userData,userDataModifier:userDataModifier}}>
+        <DataContext.Provider value={{
+            resortData: resortData,
+            resortDataModifier: resortDataModifier,
+            userData: userData,
+            userDataModifier: userDataModifier
+        }}>
             <ChakraProvider>
                 <BrowserRouter>
                     <Routes>

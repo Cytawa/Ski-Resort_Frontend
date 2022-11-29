@@ -20,13 +20,17 @@ import Edit from "../files/Vector.png"
 import Bin from "../files/Vector (1).png"
 import {EditMenu} from "../models/editModal";
 import {AddMenu} from "../models/addModal";
+import {render} from "react-dom";
 
 
 export const StartPage = () => {
     const context = useContext(DataContext);
     const [resorts, setResorts] = useState([context.resortData]);
+    //useEffect(()=>{EditMenu(},[]);
+
+
     useEffect(() => {
-        getApiData();
+        getApiData()
     }, []);
     const [user, setUser]=useState({userData:{userId:0,userName:"",userRole:RoleEnum.unsign}})
     const getApiData = async () => {
@@ -36,6 +40,13 @@ export const StartPage = () => {
 
         setResorts(response);
     };
+    function deleteResort(id:number) {
+
+        fetch(`http://localhost:8088/api/curort/${id}`, {method: 'DELETE'})
+
+    }
+
+
 
 
     const navigate = useNavigate()
@@ -45,11 +56,11 @@ export const StartPage = () => {
                 <img className={"logo"} src={Logo} alt="logo"></img>
 
                 <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                    {context.userData.userRole === RoleEnum.unsign && (
+                    {context.userData.userRole === RoleEnum.admin && (
                     <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
                         <button className={"signButton"}>Singup</button>
-                    <button className={"button"}>LOGIN</button>
-                    </Box>)};</Box>
+                    <button className={"button"}>LOGIN</button><Box marginRight='16px'></Box>
+                    </Box>)}</Box>
             </Box>
             <Box display={"flex"} flexDirection={"column"} alignItems={"center"}
                  justifyItems={"center"} justifyContent={"center"} height='100%'>
@@ -61,16 +72,16 @@ export const StartPage = () => {
                             <Box className={"boxSelect"}
                                   justifyContent={"space-between"}>
                                 <div onClick={() => [navigate("../resort"),
-                                    context.resortData.curortName = resort.curortName]}>{resort.curortName}</div>
-                                {context.userData.userRole === RoleEnum.unsign && (
+                                    context.resortData.curortName = resort.curortName]}>{resort.curortName+" "+resort.id}</div>
+                                {context.userData.userRole === RoleEnum.admin && (
                                     <Box display={"flex"} flexDirection={"row"} width='75px' justifyContent={"space-between"}>
 
 
-                                <EditMenu/><img src={Bin}/></Box>)}
+                                <EditMenu /><img src={Bin} onClick={()=>deleteResort(resort.id)}/></Box>)}
                             </Box>)
                     })}
-                    <Box display={"flex"} flexDirection={"row-reverse"} >
-                        <AddMenu/></Box>
+                    <Box display={"flex"} flexDirection={"row-reverse"} >{context.userData.userRole === RoleEnum.admin && (
+                        <AddMenu/>)}</Box>
                 </Stack>
             </Box>
         </Box>
