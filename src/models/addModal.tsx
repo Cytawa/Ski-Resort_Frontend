@@ -9,15 +9,14 @@ import {
     ModalOverlay,
     useDisclosure
 } from "@chakra-ui/react";
-import {useContext, useEffect} from "react";
+import {useContext, useState} from "react";
 import {DataContext} from "../App";
-import {render} from "react-dom";
-import {StartPage} from "../components/StartPage";
-import ReactDOM from "react-dom/client";
+
 
 export function AddMenu()  {
     const {isOpen, onOpen, onClose} = useDisclosure()
     const context = useContext(DataContext);
+
     const onResortNameChanged = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -66,13 +65,17 @@ async function  handleClic() {
                 }
             )
         })
-    onClose()
+    context.isChangeModifier(true)
+
+    onClose();
+
 
 }
+
     return (
         <>
 
-            <button className={"button"} onClick={onOpen}>+ Add</button>
+            <button  className={"buttonAdd"}  onClick={onOpen}>+ Add Resort</button>
 
             <Modal
 
@@ -97,7 +100,7 @@ async function  handleClic() {
                         </FormControl>
                         <FormControl mt={4}>
                             <FormLabel>Phone number</FormLabel>
-                            <Input placeholder='Phone number' value={context.resortData.curortPhonenumber}
+                            <Input placeholder='Phone number' value={context.resortData.curortPhonenumber} type={"number"}
                                    onChange={onResortPhoneChanged}/>
                         </FormControl>
                         <FormControl mt={4}>

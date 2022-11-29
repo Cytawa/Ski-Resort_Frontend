@@ -1,13 +1,6 @@
 import {
     Box,
-    Button, FormControl, FormLabel, Input,
-    Modal, ModalBody,
-    ModalCloseButton,
-    ModalContent, ModalFooter,
-    ModalHeader,
-    ModalOverlay,
     Stack,
-    useDisclosure
 } from "@chakra-ui/react";
 
 import "./StartPage.css";
@@ -16,22 +9,23 @@ import {useNavigate} from "react-router-dom";
 import {DataContext} from "../App";
 import {useContext, useEffect, useState} from "react";
 import {RoleEnum} from "../models/roleEnum";
-import Edit from "../files/Vector.png"
+import Person from "../files/Vector (2).png"
 import Bin from "../files/Vector (1).png"
 import {EditMenu} from "../models/editModal";
 import {AddMenu} from "../models/addModal";
-import {render} from "react-dom";
+import {findAllByAltText} from "@testing-library/react";
 
 
-export const StartPage = () => {
+
+export const StartPage  = () => {
     const context = useContext(DataContext);
     const [resorts, setResorts] = useState([context.resortData]);
-    //useEffect(()=>{EditMenu(},[]);
+const[isChanged, setChanged]=useState(context.isChanged)
 
 
     useEffect(() => {
         getApiData()
-    }, []);
+    }, [context.isChanged]);
     const [user, setUser]=useState({userData:{userId:0,userName:"",userRole:RoleEnum.unsign}})
     const getApiData = async () => {
         const response = await fetch(
@@ -39,10 +33,13 @@ export const StartPage = () => {
         ).then((response) => response.json());
 
         setResorts(response);
+        context.isChangeModifier(false)
     };
     function deleteResort(id:number) {
 
         fetch(`http://localhost:8088/api/curort/${id}`, {method: 'DELETE'})
+        context.isChangeModifier(true)
+
 
     }
 
@@ -51,37 +48,45 @@ export const StartPage = () => {
 
     const navigate = useNavigate()
     return (<Box className={"background"} display="flex" flexDirection={"column"} alignContent={"center"}>
-            <Box className={"navBar"}>
-
-                <img className={"logo"} src={Logo} alt="logo"></img>
-
-                <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                    {context.userData.userRole === RoleEnum.admin && (
+                <Box className={"navBar"}>
+                    <img className={"logo"} src={Logo} alt="logo"></img>
                     <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                        <button className={"signButton"}>Singup</button>
-                    <button className={"button"}>LOGIN</button><Box marginRight='16px'></Box>
-                    </Box>)}</Box>
-            </Box>
-            <Box display={"flex"} flexDirection={"column"} alignItems={"center"}
+
+                         {context.userData.userRole === RoleEnum.unsign?
+                            <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
+                            <button className={"signButton"}>Singup</button>
+                            <button className={"button"}>Login</button>
+                            <Box marginRight='43px'></Box>
+                            </Box> : <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
+                                 <Box display="flex" flexDirection={"row"} ><img  src={Person} width='16px'/>
+                                     <p className={"person"}>{context.userData.userName}</p></Box>
+                            <button className={"button"}>Logout</button>
+                            <Box marginRight='43px'></Box>
+                            </Box>
+                        }
+
+
+                    </Box>
+                </Box>
+                <Box display={"flex"} flexDirection={"column"} alignItems={"center"}
                  justifyItems={"center"} justifyContent={"center"} height='100%'>
-                <Stack maxWidth='557px' minWidth='557px' marginRight='51%' marginLeft='11%'>
-                    <p className={"selectSki"}>Select Ski Resort</p>
-
-                    {resorts.map((resort) => {
-                        return (
-                            <Box className={"boxSelect"}
-                                  justifyContent={"space-between"}>
-                                <div onClick={() => [navigate("../resort"),
-                                    context.resortData.curortName = resort.curortName]}>{resort.curortName+" "+resort.id}</div>
-                                {context.userData.userRole === RoleEnum.admin && (
+                    <Stack maxWidth='557px' minWidth='557px' marginRight='51%' marginLeft='11%'>
+                        <p className={"selectSki"}>Select Ski Resort</p>
+                            {resorts.map((resort) => {
+                                return (
+                                <Box className={"boxSelect"}
+                                    justifyContent={"space-between"} key={resort.id}>
+                                    <Box onClick={() => [navigate("../resort"),
+                                        context.resortData = resort]} >{resort.curortName+resort.id}
+                                    </Box>
+                                    {context.userData.userRole === RoleEnum.admin && (
                                     <Box display={"flex"} flexDirection={"row"} width='75px' justifyContent={"space-between"}>
-
-
-                                <EditMenu /><img src={Bin} onClick={()=>deleteResort(resort.id)}/></Box>)}
-                            </Box>)
-                    })}
-                    <Box display={"flex"} flexDirection={"row-reverse"} >{context.userData.userRole === RoleEnum.admin && (
-                        <AddMenu/>)}</Box>
+                                        <EditMenu ></EditMenu>
+                                        <img src={Bin} onClick={()=>deleteResort(resort.id)}/></Box>)}
+                                    </Box>)})}
+                                <Box display={"flex"} flexDirection={"row-reverse"} >{context.userData.userRole === RoleEnum.admin && (
+                                <AddMenu ></AddMenu>)}
+                                 </Box>
                 </Stack>
             </Box>
         </Box>

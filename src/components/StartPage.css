@@ -6,6 +6,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    background-attachment: fixed
 }
 
 .navBar {
@@ -28,14 +29,23 @@
 
 
 }
-
+.person{
+    font-family: 'Arial' ;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+       color: #4079A0;
+    margin-right: 30px;
+    margin-left: 10px;
+}
 
 .button {
-    
+
     width: 75px;
     height: 40px;
     background: #4079A0;
-    font-family: 'Inter', serif;
+    font-family: 'Arial', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -50,10 +60,10 @@
     gap: 8px;
 }
 .signButton{
-    margin-right:30px ;
+    margin-right:40px ;
     width: 55px;
     height: 24px;
-    font-family: 'Inter', serif;
+    font-family: 'Arial', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -64,6 +74,25 @@
     align-items: center;
     flex-direction: row;
 
+}
+.buttonAdd {
+
+    width: 145px;
+    height: 40px;
+    background: #4079A0;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 4px;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 8px;
 }
 .selectSki{
     font-family: "Arial", serif;

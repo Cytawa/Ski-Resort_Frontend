@@ -10,13 +10,14 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import Edit from "../files/Vector.png";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {DataContext} from "../App";
 
-export function EditMenu() {
+
+export function  EditMenu()   {
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const context = useContext(DataContext);
-    const [idrsort, setidrsort] = useState(context.resortData.id);
 
     const onResortNameChanged = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -68,14 +69,17 @@ export function EditMenu() {
                     }
                 )
             })
+        context.isChangeModifier(true)
         onClose()
+
 
     }
 
     return (
         <>
 
-            <img src={Edit} onClick={onOpen}/>
+            <img src={Edit} onClick={onOpen
+                                }/>
 
             <Modal
 
@@ -112,7 +116,7 @@ export function EditMenu() {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button className={"button"} colorScheme='blue' mr={3} onClick={()=>handleClic(idrsort)}>
+                        <Button className={"button"} colorScheme='blue' mr={3} onClick={()=>handleClic(context.resortData.id)}>
                             Edit
                         </Button>
                         <Button className={"button"} onClick={onClose}>Cancel</Button>

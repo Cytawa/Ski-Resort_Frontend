@@ -14,6 +14,8 @@ interface DataContext {
     resortDataModifier: (value: ResortData) => void;
     userData: UserData;
     userDataModifier: (value: UserData) => void;
+    isChanged:boolean
+    isChangeModifier: (value: boolean)=>void;
 }
 
 export const DataContext = createContext<DataContext>({
@@ -25,7 +27,9 @@ export const DataContext = createContext<DataContext>({
 
     userData: {userId: 0, userName: "", userRole: RoleEnum.admin},
     resortDataModifier: (value: ResortData) => {
-    }
+    },
+    isChanged: false,
+    isChangeModifier:(value: boolean)=>{}
 
 });
 
@@ -46,12 +50,18 @@ function App() {
     const userDataModifier = (value: UserData) => {
         setUserData(value)
     }
+    const [isChanged, setIsChange] = useState<boolean>(false);
+    const isChangeModifier=(value:boolean)=>{setIsChange(value)}
+
+
     return (
         <DataContext.Provider value={{
             resortData: resortData,
             resortDataModifier: resortDataModifier,
             userData: userData,
-            userDataModifier: userDataModifier
+            userDataModifier: userDataModifier,
+            isChanged:isChanged,
+            isChangeModifier:isChangeModifier
         }}>
             <ChakraProvider>
                 <BrowserRouter>

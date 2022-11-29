@@ -9,7 +9,7 @@ export const Resort=()=>{
     return(<div>
 
 
-        {context.resortData.curortName}
+        {context.resortData.id}
 
 
 
