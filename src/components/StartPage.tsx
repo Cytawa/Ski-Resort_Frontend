@@ -14,6 +14,7 @@ import Bin from "../files/Vector (1).png"
 import {EditMenu} from "../models/editModal";
 import {AddMenu} from "../models/addModal";
 import {findAllByAltText} from "@testing-library/react";
+import {NavBar} from "./navBar";
 
 
 
@@ -48,26 +49,7 @@ const[isChanged, setChanged]=useState(context.isChanged)
 
     const navigate = useNavigate()
     return (<Box className={"background"} display="flex" flexDirection={"column"} alignContent={"center"}>
-                <Box className={"navBar"}>
-                    <img className={"logo"} src={Logo} alt="logo"></img>
-                    <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-
-                         {context.userData.userRole === RoleEnum.unsign?
-                            <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                            <button className={"signButton"}>Singup</button>
-                            <button className={"button"}>Login</button>
-                            <Box marginRight='43px'></Box>
-                            </Box> : <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                                 <Box display="flex" flexDirection={"row"} ><img  src={Person} width='16px'/>
-                                     <p className={"person"}>{context.userData.userName}</p></Box>
-                            <button className={"button"}>Logout</button>
-                            <Box marginRight='43px'></Box>
-                            </Box>
-                        }
-
-
-                    </Box>
-                </Box>
+                <NavBar/>
                 <Box display={"flex"} flexDirection={"column"} alignItems={"center"}
                  justifyItems={"center"} justifyContent={"center"} height='100%'>
                     <Stack maxWidth='557px' minWidth='557px' marginRight='51%' marginLeft='11%'>
