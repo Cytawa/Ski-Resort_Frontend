@@ -20,7 +20,7 @@ return(
                 <button className={"button"}>Login</button>
                 <Box marginRight='43px'></Box>
             </Box> : <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                <Box display="flex" flexDirection={"row"} ><img  src={Person} width='16px'/>
+                <Box display="flex" flexDirection={"row"} ><img alt={"Person Icon"} src={Person} width='16px'/>
                     <p className={"person"}>{context.userData.userName}</p></Box>
                 <button className={"button"}>Logout</button>
                 <Box marginRight='43px'></Box>
